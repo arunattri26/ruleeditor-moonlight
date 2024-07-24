@@ -294,9 +294,18 @@ function attachEventListners(main) {
   });
 }
 
+function enableRuleEditorExtension() {
+  const head = document.getElementsByTagName('head')[0];
+  const meta = document.createElement('meta');
+  meta.name = 'urn:adobe:aue:config:extensions';
+  meta.content = 'https://283250-aattriformsueextnsn-stage.adobeio-static.net';
+  head.appendChild(meta);
+}
+
 loadCSS(`${window.hlx.codeBasePath}/scripts/form-editor-support.css`);
 attachEventListners(document.querySelector('main'));
 const forms = document.querySelectorAll('form');
 annotateFormsForEditing(forms);
 const observer = new MutationObserver(instrumentForms);
 observer.observe(document, { childList: true, subtree: true, attributeFilter: ['form'] });
+enableRuleEditorExtension();
